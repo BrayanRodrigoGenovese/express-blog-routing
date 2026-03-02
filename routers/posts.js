@@ -8,7 +8,15 @@ router.get("/", (req, res) => {
 });
 
 router.get("/:id", (req, res) => {
-  res.send("Dettagli del post " + req.params.id);
+  const postFound = postsData.find(
+    (post) => post.id === parseInt(req.params.id),
+  );
+
+  if (postFound) {
+    res.json(postFound);
+  } else {
+    res.status(404).send("Errore: Post non trovato!");
+  }
 });
 
 router.post("/", (req, res) => {
